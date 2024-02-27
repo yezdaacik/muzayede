@@ -22,7 +22,9 @@ CREATE TABLE IF NOT EXISTS `eser` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ad` varchar(100) NOT NULL DEFAULT '0',
   `sanatci_id` int(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `FK_eser_sanatci` (`sanatci_id`),
+  CONSTRAINT `FK_eser_sanatci` FOREIGN KEY (`sanatci_id`) REFERENCES `sanatci` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- muzayede.eser: ~0 rows (yaklaşık) tablosu için veriler indiriliyor
@@ -36,7 +38,11 @@ CREATE TABLE IF NOT EXISTS `islem` (
   `musteri_id` int(11) NOT NULL DEFAULT 0,
   `satis_tarih` date NOT NULL,
   `fiyat` double NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `FK_islem_eser` (`eser_id`),
+  KEY `FK_islem_musteri` (`musteri_id`),
+  CONSTRAINT `FK_islem_eser` FOREIGN KEY (`eser_id`) REFERENCES `eser` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_islem_musteri` FOREIGN KEY (`musteri_id`) REFERENCES `musteri` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- muzayede.islem: ~0 rows (yaklaşık) tablosu için veriler indiriliyor
